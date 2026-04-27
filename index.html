@@ -1,0 +1,435 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Green Pulse | Автополив под ключ</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f9f9f9;
+            color: #1a2a3a;
+            scroll-behavior: smooth;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        .header {
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            padding: 15px 0;
+        }
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #2e7d32;
+        }
+        .logo span {
+            color: #4caf50;
+        }
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            margin-left: 25px;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        .nav-links a:hover {
+            color: #4caf50;
+        }
+        /* Главная заставка с фото на весь экран */
+        .hero {
+            background-image: url('images/hero-bg.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+        }
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 30px;
+        }
+        .btn {
+            display: inline-block;
+            background: #4caf50;
+            color: white;
+            padding: 12px 30px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            margin: 10px;
+            border: none;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .btn-outline {
+            background: transparent;
+            border: 2px solid white;
+        }
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        .section {
+            padding: 80px 0;
+        }
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            color: #1e4a2f;
+            margin-bottom: 15px;
+        }
+        .section-subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 50px;
+            font-size: 1.1rem;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        .card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            transition: 0.3s;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        .card i {
+            font-size: 3rem;
+            color: #4caf50;
+            margin-bottom: 15px;
+        }
+        .card-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            background-color: #e8f5e9;
+        }
+        .price {
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: #4caf50;
+            margin-top: 15px;
+        }
+        .review-text {
+            font-style: italic;
+            margin: 15px 0;
+            color: #555;
+        }
+        .calculator {
+            background: #e8f5e9;
+        }
+        .calc-box {
+            background: white;
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+        }
+        .calc-box input, .calc-box select {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+        .result {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #4caf50;
+            margin-top: 20px;
+        }
+        .contact {
+            background: linear-gradient(135deg, #1e4a2f, #2e7d32);
+            color: white;
+        }
+        .contact-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            background: rgba(255,255,255,0.1);
+            padding: 50px;
+            border-radius: 20px;
+        }
+        .contact-info p {
+            margin: 15px 0;
+        }
+        .contact-info i {
+            margin-right: 10px;
+            width: 25px;
+        }
+        .contact-form input, .contact-form textarea {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: none;
+            border-radius: 8px;
+        }
+        .footer {
+            background: #1a2a3a;
+            color: white;
+            text-align: center;
+            padding: 30px 0;
+        }
+        @media (max-width: 768px) {
+            .nav {
+                flex-direction: column;
+                gap: 15px;
+            }
+            .nav-links a {
+                margin: 0 10px;
+            }
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            .contact-wrapper {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+
+<header class="header">
+    <div class="container nav">
+        <div class="logo">Green<span>Pulse</span></div>
+        <div class="nav-links">
+            <a href="#services">Услуги</a>
+            <a href="#projects">Проекты</a>
+            <a href="#reviews">Отзывы</a>
+            <a href="#calculator">Калькулятор</a>
+            <a href="#contact">Контакты</a>
+        </div>
+    </div>
+</header>
+
+<!-- Главная заставка с фото -->
+<section class="hero">
+    <h1>Green Pulse</h1>
+    <p>Автоматический полив под ключ. Экономия воды до 50% и идеальный газон без вашего участия.</p>
+    <a href="#calculator" class="btn">Рассчитать стоимость</a>
+    <a href="#contact" class="btn btn-outline">Бесплатная консультация</a>
+</section>
+
+<!-- Услуги -->
+<section id="services" class="section">
+    <div class="container">
+        <h2 class="section-title">Наши услуги</h2>
+        <p class="section-subtitle">Полный комплекс работ по автополиву</p>
+        <div class="grid">
+            <div class="card">
+                <i class="fas fa-drafting-compass"></i>
+                <h3>Проектирование</h3>
+                <p>Индивидуальный план полива с учётом особенностей участка</p>
+                <div class="price">от 500 ₽/сотка</div>
+            </div>
+            <div class="card">
+                <i class="fas fa-tools"></i>
+                <h3>Монтаж</h3>
+                <p>Монтаж оборудования "под ключ" за 3-7 дней</p>
+                <div class="price">от 1500 ₽/м²</div>
+            </div>
+            <div class="card">
+                <i class="fas fa-wrench"></i>
+                <h3>Обслуживание</h3>
+                <p>Регулировка, консервация и расконсервация системы</p>
+                <div class="price">от 5000 ₽/сезон</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Преимущества -->
+<section style="background: #e8f5e9; padding: 80px 0;">
+    <div class="container">
+        <h2 class="section-title">Преимущества автополива</h2>
+        <p class="section-subtitle">Почему стоит выбрать автоматическую систему</p>
+        <div class="grid">
+            <div class="card">
+                <i class="fas fa-tint"></i>
+                <h3>Экономия воды</h3>
+                <p>Точный полив снижает расход на 30-50%</p>
+            </div>
+            <div class="card">
+                <i class="fas fa-clock"></i>
+                <h3>Экономия времени</h3>
+                <p>Полностью автоматизированный процесс</p>
+            </div>
+            <div class="card">
+                <i class="fas fa-seedling"></i>
+                <h3>Здоровье растений</h3>
+                <p>Оптимальное увлажнение корней</p>
+            </div>
+            <div class="card">
+                <i class="fas fa-chart-line"></i>
+                <h3>Повышение стоимости</h3>
+                <p>Ухоженный участок дорожает на 10-15%</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Проекты -->
+<section id="projects" class="section">
+    <div class="container">
+        <h2 class="section-title">Наши проекты</h2>
+        <p class="section-subtitle">Успешные объекты Green Pulse</p>
+        <div class="grid">
+            <div class="card">
+                <div class="card-img" style="display: flex; align-items: center; justify-content: center; background: #c8e6c9; font-size: 48px;">🌿</div>
+                <h3>КП "Солнечная Долина"</h3>
+                <p>1200 м² газона, экономия воды 35%</p>
+            </div>
+            <div class="card">
+                <div class="card-img" style="display: flex; align-items: center; justify-content: center; background: #c8e6c9; font-size: 48px;">🏢</div>
+                <h3>БЦ "Вертикаль"</h3>
+                <p>2 гектара, снижение затрат на 80%</p>
+            </div>
+            <div class="card">
+                <div class="card-img" style="display: flex; align-items: center; justify-content: center; background: #c8e6c9; font-size: 48px;">⛳</div>
+                <h3>Гольф-клуб "Загородный"</h3>
+                <p>18 полей, равномерный полив за 6 часов</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Отзывы -->
+<section id="reviews" class="section" style="background: #e8f5e9;">
+    <div class="container">
+        <h2 class="section-title">Отзывы клиентов</h2>
+        <p class="section-subtitle">Что говорят о нас те, кто уже пользуется автополивом</p>
+        <div class="grid">
+            <div class="card">
+                <i class="fas fa-quote-left"></i>
+                <p class="review-text">"Газон стал как ковёр! Теперь не трачу время на полив. Спасибо Green Pulse!"</p>
+                <h4>Екатерина С.</h4>
+                <p>частный дом</p>
+            </div>
+            <div class="card">
+                <i class="fas fa-quote-left"></i>
+                <p class="review-text">"Профессионалы. Всё сделали быстро, аккуратно. Экономия воды реально 40%."</p>
+                <h4>Андрей К.</h4>
+                <p>дача 15 соток</p>
+            </div>
+            <div class="card">
+                <i class="fas fa-quote-left"></i>
+                <p class="review-text">"Консервацию на зиму сделали отлично. Весной всё запустили без проблем."</p>
+                <h4>Мария В.</h4>
+                <p>коттеджный посёлок</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Калькулятор -->
+<section id="calculator" class="calculator section">
+    <div class="container">
+        <h2 class="section-title">Калькулятор стоимости</h2>
+        <p class="section-subtitle">Рассчитайте примерную стоимость системы для вашего участка</p>
+        <div class="calc-box">
+            <label>Площадь участка (м²):</label>
+            <input type="number" id="area" value="500">
+            <label>Тип растений:</label>
+            <select id="plant">
+                <option value="1">Газон</option>
+                <option value="1.2">Газон + цветники</option>
+                <option value="1.5">Сложный ландшафт</option>
+            </select>
+            <button class="btn" onclick="calcPrice()">Рассчитать</button>
+            <div class="result">≈ <span id="price">750 000</span> ₽</div>
+            <small>*Окончательная стоимость после выезда инженера</small>
+        </div>
+    </div>
+</section>
+
+<!-- Контакты -->
+<section id="contact" class="contact section">
+    <div class="container">
+        <div class="contact-wrapper">
+            <div class="contact-info">
+                <h2 style="margin-bottom: 20px;">Начните с Green Pulse сегодня!</h2>
+                <p>Бесплатная консультация и выезд инженера в течение 24 часов.</p>
+                <p><i class="fas fa-phone"></i> <strong>Александр Перышкин:</strong> 8 (900) 203-54-79</p>
+                <p><i class="fas fa-envelope"></i> Aperishkin@rambler.ru</p>
+                <p><i class="fas fa-map-marker-alt"></i> г. Березовский, Свердловская область, ул. Гагарина, 17</p>
+                <p><i class="fas fa-clock"></i> Пн-Пт: 9:00-20:00, Сб: 10:00-18:00</p>
+            </div>
+            <div class="contact-form">
+                <form id="contactForm">
+                    <input type="text" placeholder="Ваше имя" required>
+                    <input type="tel" placeholder="Телефон" required>
+                    <input type="email" placeholder="Email">
+                    <textarea rows="3" placeholder="Сообщение"></textarea>
+                    <button type="submit" class="btn">Отправить заявку</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer class="footer">
+    <div class="container">
+        <p>© 2025 Green Pulse. Все права защищены.</p>
+    </div>
+</footer>
+
+<script>
+    function calcPrice() {
+        let area = document.getElementById('area').value;
+        let plant = document.getElementById('plant').value;
+        let price = area * 1500 * plant;
+        document.getElementById('price').innerText = Math.round(price).toLocaleString();
+    }
+    calcPrice();
+
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        alert('Спасибо за заявку! Александр Перышкин свяжется с вами.');
+        this.reset();
+    });
+</script>
+
+</body>
+</html>
+
